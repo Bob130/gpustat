@@ -180,7 +180,8 @@ class GPUStat(object):
         colors['CMemU'] = term.bold_yellow
         colors['CMemT'] = term.yellow
         colors['CMemP'] = term.yellow
-        colors['CUser'] = term.bold_black   # gray
+        colors['CUser'] = term.red
+        # colors['CUser'] = term.bold_black   # gray
         colors['CUtil'] = _conditional(lambda: self.utilization < 30,
                                        term.green, term.bold_green)
         colors['CPowU'] = _conditional(
@@ -216,7 +217,7 @@ class GPUStat(object):
             else:
                 reps += "%(CPowU)sW%(C0)s"
 
-        reps += " | %(C1)s%(CMemU)s{entry[memory.used]:>5}%(C0)s " \
+        reps += " | %(C1)s[{entry[index]}]%(C0)s %(C1)s%(CMemU)s{entry[memory.used]:>5}%(C0)s " \
             "/ %(CMemT)s{entry[memory.total]:>5}%(C0)s MB"
         reps = (reps) % colors
         reps = reps.format(entry={k: _repr(v) for k, v in self.entry.items()},
